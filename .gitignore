@@ -1,0 +1,4 @@
+__pycache__
+event_env/
+node_modules
+package-lock.json
