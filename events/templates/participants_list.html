@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block participant %}
+ <div class="container">
+
+    <!-- Category Form -->
+    <form method="POST" class="bg-white p-6 rounded shadow-md max-w-md mx-auto flex flex-col gap-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Participant</button>
+    </form>
+
+    <hr>
+
+    <!-- Category List -->
+    {% if participants %}
+        <ul>
+            {% for participant in participants %}
+                <li class="mb-4">
+                    <strong>{{ participant.name }}</strong><br>
+                    {{ participant.email}}
+
+                    <!-- Update -->
+                    <a href="{% url 'participant-update' participant.id %}">
+                        <button class="py-2 px-3 rounded-xl bg-blue-500 text-white">
+                            Update
+                        </button>
+                    </a>
+
+                    <!-- Delete -->
+                    <form method="POST"
+                          action="{% url 'participant-delete' participant.id %}"
+                          style="display:inline;">
+                        {% csrf_token %}
+                        <button
+                            class="py-2 px-3 rounded-xl bg-red-500 text-white"
+                            onclick="return confirm('Are you sure?')">
+                            Delete
+                        </button>
+                    </form>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">No Participants found.</p>
+    {% endif %}
+</div>
+{% endblock participant %}

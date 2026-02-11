@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <style>
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        form button {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background: #084298;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f1f1f1;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .empty {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Event Management{% endblock %}</title>
+    {% comment %} <link rel="stylesheet" href="{% static "css/output.css" %}"> {% endcomment %}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+             <a href="{% url 'home' %}" class="text-xl font-bold">Event Manager</a>
+             <div class="space-x-4">
+                <a href="{% url 'events_list' %}" class="hover:underline">Events</a>
+                <a href='{% url "create-event" %}' class="hover:underline">Create Event</a>
+                <a href="{% url 'participants_list' %}" class="hover:underline">Participants</a>
+                <a href="{% url 'category_list' %}" class="hover:underline">Categories</a>
+                <a href="{% url 'manager-dashboard' %}" class="hover:underline">Dashboard</a> 
+            </div>  
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto p-6">
+        {% block content %}{% endblock %}
+        {% block category %}{% endblock category %}
+        {% block participant %}{% endblock participant %}
+    </div>
+
+</body>
+</html>

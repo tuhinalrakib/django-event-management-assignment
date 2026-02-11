@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Organizer Dashboard</h1>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white p-4 rounded shadow hover:bg-blue-50 cursor-pointer" onclick="filterEvents('total')">
+        <p class="text-gray-500">Total Participants</p>
+        <p class="text-xl font-bold">{{ total_participants }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow hover:bg-blue-50 cursor-pointer" onclick="filterEvents('events')">
+        <p class="text-gray-500">Total Events</p>
+        <p class="text-xl font-bold">{{ total_events }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow hover:bg-blue-50 cursor-pointer" onclick="filterEvents('upcoming')">
+        <p class="text-gray-500">Upcoming Events</p>
+        <p class="text-xl font-bold">{{ upcoming_events }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow hover:bg-blue-50 cursor-pointer" onclick="filterEvents('past')">
+        <p class="text-gray-500">Past Events</p>
+        <p class="text-xl font-bold">{{ past_events }}</p>
+    </div>
+</div>
+
+<!-- Today's Events -->
+<h2 class="text-xl font-semibold mb-2">Today's Events</h2>
+<ul id="events-list" class="space-y-2">
+    {% for event in todays_events %}
+        <li class="bg-white p-3 rounded shadow">
+            <strong>{{ event.name }}</strong> - {{ event.category.name }} - {{ event.participants.count }} participants
+        </li>
+    {% empty %}
+        <li class="text-gray-500">No events today.</li>
+    {% endfor %}
+</ul>
+
+<script>
+function filterEvents(type) {
+    // Here you can implement dynamic filtering using AJAX
+    alert('Filter clicked: ' + type);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}📂 Category List{% endblock %}
+
+{% block category %}
+<div class="container">
+
+    <!-- Category Form -->
+    <form method="POST" class="bg-white p-6 rounded shadow-md max-w-md mx-auto flex flex-col gap-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Category</button>
+    </form>
+
+    <hr>
+
+    <!-- Category List -->
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li class="mb-4">
+                    <strong>{{ category.name }}</strong><br>
+                    {{ category.description }}
+
+                    <!-- Update -->
+                    <a href="{% url 'category_update' category.id %}">
+                        <button class="py-2 px-3 rounded-xl bg-blue-500 text-white">
+                            Update
+                        </button>
+                    </a>
+
+                    <!-- Delete -->
+                    <form method="POST"
+                          action="{% url 'category_delete' category.id %}"
+                          style="display:inline;">
+                        {% csrf_token %}
+                        <button
+                            class="py-2 px-3 rounded-xl bg-red-500 text-white"
+                            onclick="return confirm('Are you sure?')">
+                            Delete
+                        </button>
+                    </form>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">No categories found.</p>
+    {% endif %}
+</div>
+{% endblock category %}
